@@ -1,0 +1,5 @@
+- [ ] Update config/fortify.php to set 'confirmPassword' => false
+- [ ] Update app/Http/Controllers/Auth/EmailVerificationNotificationController.php to redirect to route('home') for unverified users
+- [ ] Update app/Http/Controllers/ProfileController.php destroy method to redirect to route('home')
+- [ ] Update tests/Feature/Auth/TwoFactorChallengeTest.php to use followingRedirects for the login post
+- [ ] Run tests to verify fixes
