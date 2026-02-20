@@ -137,7 +137,7 @@ class DeviceController extends Controller
         'assignments.assignable',
         'assignments.assignedBy',
         'currentAssignment.assignable',
-         'currentAssignment.assignedBy',
+        'currentAssignment.assignedBy',
     ]);
 
     $assignmentHistory = $device->assignments()
