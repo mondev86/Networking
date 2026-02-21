@@ -3,24 +3,37 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\TwoFactorAuthenticationRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Laravel\Fortify\Features;
 
 class TwoFactorAuthenticationController extends Controller
 {
-
-    /**
-     * Show the user's two-factor authentication settings page.
-     */
-    public function show(TwoFactorAuthenticationRequest $request): Response
+    public function show(Request $request): Response|RedirectResponse
     {
-        $request->ensureStateIsValid();
+        $user = $request->user();
+
+        // Retornar 403 si 2FA está deshabilitado completamente
+        if (!Features::canManageTwoFactorAuthentication()) {
+            abort(403);
+        }
+
+        // Verificar si requiere confirmación de contraseña
+        $requiresPasswordConfirmation = Features::optionEnabled(
+            Features::twoFactorAuthentication(),
+            'confirmPassword'
+        ) && !$request->session()->has('auth.password_confirmed_at');
+
+        // Si requiere confirmación y no está confirmada, redirigir
+        if ($requiresPasswordConfirmation) {
+            return redirect()->route('password.confirm');
+        }
 
         return Inertia::render('settings/TwoFactor', [
-            'twoFactorEnabled' => $request->user()->hasEnabledTwoFactorAuthentication(),
-            'requiresConfirmation' => Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm'),
+            'twoFactorEnabled' => (bool)($user->two_factor_enabled ?? false),
+            'requiresConfirmation' => $requiresPasswordConfirmation,
         ]);
     }
 }

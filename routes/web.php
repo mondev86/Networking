@@ -9,6 +9,8 @@ use App\Http\Controllers\TicketResponseController;
 use App\Http\Controllers\DeviceController;  // ← AGREGAR
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\TwoFactorChallengeController;
+use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
 use Inertia\Inertia;
 
 // Ruta de bienvenida
@@ -89,6 +91,25 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
     });
 
+});
+
+
+// Two Factor Challenge (Auth)
+Route::middleware('guest')->group(function () {
+    Route::get('/two-factor-challenge', [TwoFactorChallengeController::class, 'create'])
+        ->name('two-factor.login');
+
+    Route::post('/two-factor-challenge', [TwoFactorChallengeController::class, 'store']);
+});
+
+// Two Factor Challenge - SIN middleware guest para permitir usuarios autenticados
+Route::get('/two-factor-challenge', [TwoFactorChallengeController::class, 'create'])
+    ->name('two-factor.login');
+
+// Two Factor Settings - SIN password.confirm
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])
+        ->name('two-factor.show');
 });
 
 require __DIR__.'/auth.php';
