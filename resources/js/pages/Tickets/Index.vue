@@ -4,7 +4,7 @@ import { Head, Link, router, usePage, useForm } from '@inertiajs/vue3';
 import type { Ticket, PageProps, NetworkDevice } from '@/types';
 import { getStatusBadgeClass, getPriorityBadgeClass, getStatusLabel, getPriorityLabel } from '@/Utils/helpers';
 import Modal from '@/Components/Modal.vue';
-import InputError from '@/components/InputError.vue';
+import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';

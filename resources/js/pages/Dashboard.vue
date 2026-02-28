@@ -21,7 +21,7 @@ interface DashboardProps {
 defineProps<DashboardProps>();
 
 const page = usePage<PageProps>();
-const user = page.props.auth.user;
+const user = page.props.auth?.user;
 </script>
 
 <template>
