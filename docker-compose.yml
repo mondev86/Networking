@@ -1,0 +1,55 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: networking-app
+    working_dir: /var/www/html
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=networking
+      - DB_USERNAME=networking
+      - DB_PASSWORD=networking
+    volumes:
+      - ./:/var/www/html
+
+  nginx:
+    image: nginx:latest
+    container_name: networking-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: networking-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: networking
+      MYSQL_USER: networking
+      MYSQL_PASSWORD: networking
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  node:
+    image: node:22
+    container_name: networking-node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: ["npm", "run", "dev"]
+    ports:
+      - "5173:5173"
+
+volumes:
+  dbdata:

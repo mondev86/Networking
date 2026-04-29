@@ -19,7 +19,8 @@ return new class extends Migration
         DB::statement("UPDATE network_devices SET status = 'online' WHERE status NOT IN ('online', 'offline', 'maintenance')");
 
         // Finally, restrict the enum to the correct values
-        DB::statement("ALTER TABLE network_devices MODIFY COLUMN status ENUM('online', 'offline', 'maintenance') DEFAULT 'online'");
+       DB::statement("ALTER TABLE network_devices MODIFY COLUMN status ENUM('available', 'assigned', 'maintenance', 'offline', 'online') DEFAULT 'online'");
+
     }
 
     /**
