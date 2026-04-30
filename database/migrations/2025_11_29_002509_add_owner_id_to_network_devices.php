@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('network_devices', function (Blueprint $table) {
-            if (!Schema::hasColumn('network_devices', 'owner_id')) {
+            if (! Schema::hasColumn('network_devices', 'owner_id')) {
                 $table->foreignId('owner_id')->nullable()->constrained('users')->onDelete('set null');
             }
         });

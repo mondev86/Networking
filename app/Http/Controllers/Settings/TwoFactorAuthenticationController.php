@@ -16,7 +16,7 @@ class TwoFactorAuthenticationController extends Controller
         $user = $request->user();
 
         // Retornar 403 si 2FA está deshabilitado completamente
-        if (!Features::canManageTwoFactorAuthentication()) {
+        if (! Features::canManageTwoFactorAuthentication()) {
             abort(403);
         }
 
@@ -24,7 +24,7 @@ class TwoFactorAuthenticationController extends Controller
         $requiresPasswordConfirmation = Features::optionEnabled(
             Features::twoFactorAuthentication(),
             'confirmPassword'
-        ) && !$request->session()->has('auth.password_confirmed_at');
+        ) && ! $request->session()->has('auth.password_confirmed_at');
 
         // Si requiere confirmación y no está confirmada, redirigir
         if ($requiresPasswordConfirmation) {
@@ -32,7 +32,7 @@ class TwoFactorAuthenticationController extends Controller
         }
 
         return Inertia::render('settings/TwoFactor', [
-            'twoFactorEnabled' => (bool)($user->two_factor_enabled ?? false),
+            'twoFactorEnabled' => (bool) ($user->two_factor_enabled ?? false),
             'requiresConfirmation' => $requiresPasswordConfirmation,
         ]);
     }

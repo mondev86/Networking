@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Modal from '@/Components/Modal.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import Modal from '@/Components/Modal.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import type { NetworkDevice } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import type { NetworkDevice } from '@/types';
 
 interface Props {
     devices: NetworkDevice[];
@@ -51,51 +51,110 @@ const submitCreateForm = () => {
 
     <AuthenticatedLayout>
         <template #header>
-            <div class="flex justify-between items-center">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dispositivos de Red</h2>
-            <button
-                @click="openCreateModal"
-                class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 transition"
-            >
-                + Crear Dispositivo
-            </button>
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    Dispositivos de Red
+                </h2>
+                <button
+                    @click="openCreateModal"
+                    class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-indigo-700"
+                >
+                    + Crear Dispositivo
+                </button>
             </div>
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <div v-if="devices.length === 0" class="text-center py-12">
-                            <p class="text-gray-500">No hay dispositivos registrados</p>
+                        <div
+                            v-if="devices.length === 0"
+                            class="py-12 text-center"
+                        >
+                            <p class="text-gray-500">
+                                No hay dispositivos registrados
+                            </p>
                         </div>
 
                         <div v-else class="overflow-x-auto">
                             <table class="w-full">
-                                <thead class="bg-gray-100 border-b">
+                                <thead class="border-b bg-gray-100">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Nombre</th>
-                                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Tipo</th>
-                                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">IP Address</th>
-                                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Ubicación</th>
-                                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Estado</th>
-                                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Acciones</th>
+                                        <th
+                                            class="px-6 py-3 text-left text-sm font-medium text-gray-700"
+                                        >
+                                            Nombre
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-sm font-medium text-gray-700"
+                                        >
+                                            Tipo
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-sm font-medium text-gray-700"
+                                        >
+                                            IP Address
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-sm font-medium text-gray-700"
+                                        >
+                                            Ubicación
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-sm font-medium text-gray-700"
+                                        >
+                                            Estado
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-sm font-medium text-gray-700"
+                                        >
+                                            Acciones
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y">
-                                    <tr v-for="device in devices" :key="device.id" class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 text-sm text-gray-900">{{ device.name }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">{{ device.type }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">{{ device.ip_address }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">{{ device.location || '-' }}</td>
+                                    <tr
+                                        v-for="device in devices"
+                                        :key="device.id"
+                                        class="hover:bg-gray-50"
+                                    >
+                                        <td
+                                            class="px-6 py-4 text-sm text-gray-900"
+                                        >
+                                            {{ device.name }}
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm text-gray-600"
+                                        >
+                                            {{ device.type }}
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm text-gray-600"
+                                        >
+                                            {{ device.ip_address }}
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm text-gray-600"
+                                        >
+                                            {{ device.location || '-' }}
+                                        </td>
                                         <td class="px-6 py-4 text-sm">
                                             <span
-                                                class="px-2 py-1 text-xs rounded-full font-medium"
+                                                class="rounded-full px-2 py-1 text-xs font-medium"
                                                 :class="{
-                                                    'bg-green-100 text-green-800': device.status === 'available',
-                                                    'bg-blue-100 text-blue-800': device.status === 'assigned',
-                                                    'bg-yellow-100 text-yellow-800': device.status === 'maintenance',
-                                                    'bg-red-100 text-red-800': device.status === 'offline',
+                                                    'bg-green-100 text-green-800':
+                                                        device.status ===
+                                                        'available',
+                                                    'bg-blue-100 text-blue-800':
+                                                        device.status ===
+                                                        'assigned',
+                                                    'bg-yellow-100 text-yellow-800':
+                                                        device.status ===
+                                                        'maintenance',
+                                                    'bg-red-100 text-red-800':
+                                                        device.status ===
+                                                        'offline',
                                                 }"
                                             >
                                                 {{ device.status }}
@@ -103,13 +162,23 @@ const submitCreateForm = () => {
                                         </td>
                                         <td class="px-6 py-4 text-sm">
                                             <Link
-                                                :href="route('devices.show', device.id)"
-                                                class="text-indigo-600 hover:text-indigo-900 mr-3"
+                                                :href="
+                                                    route(
+                                                        'devices.show',
+                                                        device.id,
+                                                    )
+                                                "
+                                                class="mr-3 text-indigo-600 hover:text-indigo-900"
                                             >
                                                 Ver
                                             </Link>
                                             <Link
-                                                :href="route('devices.edit', device.id)"
+                                                :href="
+                                                    route(
+                                                        'devices.edit',
+                                                        device.id,
+                                                    )
+                                                "
                                                 class="text-indigo-600 hover:text-indigo-900"
                                             >
                                                 Editar
@@ -128,10 +197,12 @@ const submitCreateForm = () => {
     <!-- Create Device Modal -->
     <Modal :show="showCreateModal" @close="closeCreateModal" max-width="2xl">
         <div class="p-6">
-            <h2 class="text-lg font-medium text-gray-900 mb-6">Crear Nuevo Dispositivo</h2>
+            <h2 class="mb-6 text-lg font-medium text-gray-900">
+                Crear Nuevo Dispositivo
+            </h2>
 
             <form @submit.prevent="submitCreateForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <!-- Name -->
                     <div>
                         <InputLabel for="name" value="Nombre" />
@@ -142,7 +213,10 @@ const submitCreateForm = () => {
                             class="mt-1 block w-full"
                             required
                         />
-                        <InputError class="mt-2" :message="createForm.errors.name" />
+                        <InputError
+                            class="mt-2"
+                            :message="createForm.errors.name"
+                        />
                     </div>
 
                     <!-- Type -->
@@ -160,7 +234,10 @@ const submitCreateForm = () => {
                             <option value="access_point">Access Point</option>
                             <option value="server">Server</option>
                         </select>
-                        <InputError class="mt-2" :message="createForm.errors.type" />
+                        <InputError
+                            class="mt-2"
+                            :message="createForm.errors.type"
+                        />
                     </div>
 
                     <!-- IP Address -->
@@ -174,7 +251,10 @@ const submitCreateForm = () => {
                             placeholder="192.168.1.1"
                             required
                         />
-                        <InputError class="mt-2" :message="createForm.errors.ip_address" />
+                        <InputError
+                            class="mt-2"
+                            :message="createForm.errors.ip_address"
+                        />
                     </div>
 
                     <!-- MAC Address -->
@@ -187,7 +267,10 @@ const submitCreateForm = () => {
                             class="mt-1 block w-full"
                             placeholder="00:11:22:33:44:55"
                         />
-                        <InputError class="mt-2" :message="createForm.errors.mac_address" />
+                        <InputError
+                            class="mt-2"
+                            :message="createForm.errors.mac_address"
+                        />
                     </div>
 
                     <!-- Location -->
@@ -200,7 +283,10 @@ const submitCreateForm = () => {
                             class="mt-1 block w-full"
                             placeholder="Oficina principal, piso 2"
                         />
-                        <InputError class="mt-2" :message="createForm.errors.location" />
+                        <InputError
+                            class="mt-2"
+                            :message="createForm.errors.location"
+                        />
                     </div>
 
                     <!-- Status -->
@@ -214,17 +300,25 @@ const submitCreateForm = () => {
                         >
                             <option value="online">🟢 En línea</option>
                             <option value="offline">🔴 Fuera de línea</option>
-                            <option value="maintenance">🟡 Mantenimiento</option>
+                            <option value="maintenance">
+                                🟡 Mantenimiento
+                            </option>
                         </select>
-                        <InputError class="mt-2" :message="createForm.errors.status" />
+                        <InputError
+                            class="mt-2"
+                            :message="createForm.errors.status"
+                        />
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-4 pt-6 border-t">
+                <div class="flex items-center justify-end gap-4 border-t pt-6">
                     <SecondaryButton @click="closeCreateModal">
                         Cancelar
                     </SecondaryButton>
-                    <PrimaryButton :class="{ 'opacity-25': createForm.processing }" :disabled="createForm.processing">
+                    <PrimaryButton
+                        :class="{ 'opacity-25': createForm.processing }"
+                        :disabled="createForm.processing"
+                    >
                         Crear Dispositivo
                     </PrimaryButton>
                 </div>

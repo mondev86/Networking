@@ -67,6 +67,7 @@ class DeviceAssignment extends Model
     public function getDurationDays(): int
     {
         $endDate = $this->unassigned_date ?? now();
+
         return $this->assigned_date->diffInDays($endDate);
     }
 

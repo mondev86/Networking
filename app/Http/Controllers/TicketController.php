@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
 use App\Models\NetworkDevice;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -39,7 +39,7 @@ class TicketController extends Controller
 
         return Inertia::render('Tickets/Index', [
             'tickets' => $tickets,
-            'devices' => $devices
+            'devices' => $devices,
         ]);
     }
 
@@ -58,7 +58,7 @@ class TicketController extends Controller
         }
 
         return Inertia::render('Tickets/Create', [
-            'devices' => $devices
+            'devices' => $devices,
         ]);
     }
 
@@ -101,7 +101,7 @@ class TicketController extends Controller
         $ticket->load(['user', 'assignedAdmin', 'device', 'responses.user']);
 
         return Inertia::render('Tickets/Show', [
-            'ticket' => $ticket
+            'ticket' => $ticket,
         ]);
     }
 
@@ -111,7 +111,7 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         // Solo admins pueden editar
-        if (!auth()->user()->canRespondTickets()) {
+        if (! auth()->user()->canRespondTickets()) {
             abort(403);
         }
 
@@ -119,7 +119,7 @@ class TicketController extends Controller
 
         return Inertia::render('Tickets/Edit', [
             'ticket' => $ticket->load('user', 'device'),
-            'admins' => $admins
+            'admins' => $admins,
         ]);
     }
 
@@ -129,7 +129,7 @@ class TicketController extends Controller
     public function update(Request $request, Ticket $ticket)
     {
         // Solo admins pueden actualizar
-        if (!auth()->user()->canRespondTickets()) {
+        if (! auth()->user()->canRespondTickets()) {
             abort(403);
         }
 
@@ -162,7 +162,7 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         // Solo el creador o un superadmin pueden eliminar
-        if ($ticket->user_id !== auth()->id() && !auth()->user()->isSuperAdmin()) {
+        if ($ticket->user_id !== auth()->id() && ! auth()->user()->isSuperAdmin()) {
             abort(403);
         }
 

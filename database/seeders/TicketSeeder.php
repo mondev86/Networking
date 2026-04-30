@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Models\NetworkDevice;
 use App\Models\Ticket;
 use App\Models\User;
-use App\Models\NetworkDevice;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Seeder;
 
 class TicketSeeder extends Seeder
 {

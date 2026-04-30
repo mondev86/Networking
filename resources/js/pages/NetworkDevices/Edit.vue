@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import TextInput from '@/Components/TextInput.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import type { NetworkDevice } from '@/types';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 
 interface Props {
     device: NetworkDevice;
@@ -34,11 +34,13 @@ const submit = (): void => {
 
     <AuthenticatedLayout>
         <template #header>
-            <div class="flex justify-between items-center">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Editar Dispositivo</h2>
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    Editar Dispositivo
+                </h2>
                 <Link
                     :href="route('devices.show', device.id)"
-                    class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition"
+                    class="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-gray-700"
                 >
                     ← Volver
                 </Link>
@@ -46,13 +48,16 @@ const submit = (): void => {
         </template>
 
         <div class="py-12">
-            <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <form @submit.prevent="submit" class="p-6">
                         <div class="space-y-6">
                             <!-- Nombre -->
                             <div>
-                                <InputLabel for="name" value="Nombre del dispositivo" />
+                                <InputLabel
+                                    for="name"
+                                    value="Nombre del dispositivo"
+                                />
                                 <TextInput
                                     id="name"
                                     v-model="form.name"
@@ -60,16 +65,22 @@ const submit = (): void => {
                                     class="mt-1 block w-full"
                                     required
                                 />
-                                <InputError class="mt-2" :message="form.errors.name" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.name"
+                                />
                             </div>
 
                             <!-- Tipo -->
                             <div>
-                                <InputLabel for="type" value="Tipo de dispositivo" />
+                                <InputLabel
+                                    for="type"
+                                    value="Tipo de dispositivo"
+                                />
                                 <select
                                     id="type"
                                     v-model="form.type"
-                                    class="mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm px-3 py-2"
+                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required
                                 >
                                     <option value="router">Router</option>
@@ -80,12 +91,18 @@ const submit = (): void => {
                                     <option value="camera">Cámara</option>
                                     <option value="other">Otro</option>
                                 </select>
-                                <InputError class="mt-2" :message="form.errors.type" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.type"
+                                />
                             </div>
 
                             <!-- IP Address -->
                             <div>
-                                <InputLabel for="ip_address" value="Dirección IP" />
+                                <InputLabel
+                                    for="ip_address"
+                                    value="Dirección IP"
+                                />
                                 <TextInput
                                     id="ip_address"
                                     v-model="form.ip_address"
@@ -93,31 +110,46 @@ const submit = (): void => {
                                     class="mt-1 block w-full"
                                     required
                                 />
-                                <InputError class="mt-2" :message="form.errors.ip_address" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.ip_address"
+                                />
                             </div>
 
                             <!-- MAC Address -->
                             <div>
-                                <InputLabel for="mac_address" value="Dirección MAC (opcional)" />
+                                <InputLabel
+                                    for="mac_address"
+                                    value="Dirección MAC (opcional)"
+                                />
                                 <TextInput
                                     id="mac_address"
                                     v-model="form.mac_address"
                                     type="text"
                                     class="mt-1 block w-full"
                                 />
-                                <InputError class="mt-2" :message="form.errors.mac_address" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.mac_address"
+                                />
                             </div>
 
                             <!-- Ubicación -->
                             <div>
-                                <InputLabel for="location" value="Ubicación (opcional)" />
+                                <InputLabel
+                                    for="location"
+                                    value="Ubicación (opcional)"
+                                />
                                 <TextInput
                                     id="location"
                                     v-model="form.location"
                                     type="text"
                                     class="mt-1 block w-full"
                                 />
-                                <InputError class="mt-2" :message="form.errors.location" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.location"
+                                />
                             </div>
 
                             <!-- Estado -->
@@ -126,39 +158,54 @@ const submit = (): void => {
                                 <select
                                     id="status"
                                     v-model="form.status"
-                                    class="mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm px-3 py-2"
+                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required
                                 >
                                     <option value="online">🟢 En línea</option>
-                                    <option value="offline">🔴 Fuera de línea</option>
-                                    <option value="maintenance">🟡 Mantenimiento</option>
+                                    <option value="offline">
+                                        🔴 Fuera de línea
+                                    </option>
+                                    <option value="maintenance">
+                                        🟡 Mantenimiento
+                                    </option>
                                 </select>
-                                <InputError class="mt-2" :message="form.errors.status" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.status"
+                                />
                             </div>
 
                             <!-- Notas -->
                             <div>
-                                <InputLabel for="notes" value="Notas (opcional)" />
+                                <InputLabel
+                                    for="notes"
+                                    value="Notas (opcional)"
+                                />
                                 <textarea
                                     id="notes"
                                     v-model="form.notes"
-                                    class="mt-1 block w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm px-3 py-2"
+                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     rows="4"
                                 ></textarea>
-                                <InputError class="mt-2" :message="form.errors.notes" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.notes"
+                                />
                             </div>
                         </div>
 
                         <!-- Botones -->
-                        <div class="flex items-center justify-end mt-6 gap-4">
+                        <div class="mt-6 flex items-center justify-end gap-4">
                             <Link
                                 :href="route('devices.show', device.id)"
-                                class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-400 transition"
+                                class="inline-flex items-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 transition hover:bg-gray-400"
                             >
                                 Cancelar
                             </Link>
                             <PrimaryButton :disabled="form.processing">
-                                <span v-if="!form.processing">Guardar Cambios</span>
+                                <span v-if="!form.processing"
+                                    >Guardar Cambios</span
+                                >
                                 <span v-else>Guardando...</span>
                             </PrimaryButton>
                         </div>

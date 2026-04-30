@@ -11,19 +11,16 @@ class CheckRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     * @param  mixed ...$roles
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  mixed  ...$roles
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $user = $request->user();
 
-        if (!$user || !in_array($user->role, $roles)) {
-    return redirect()->route('login'); // helper de Laravel
-}
-
+        if (! $user || ! in_array($user->role, $roles)) {
+            return redirect()->route('login'); // helper de Laravel
+        }
 
         return $next($request);
     }

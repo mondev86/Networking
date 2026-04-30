@@ -12,7 +12,7 @@ class TwoFactorChallengeController extends Controller
     public function create(Request $request): Response|\Illuminate\Http\RedirectResponse
     {
         // Si no hay sesión de 2FA y no está autenticado, redirigir a login
-        if (!$request->session()->has('login.two_factor_id') && !auth()->check()) {
+        if (! $request->session()->has('login.two_factor_id') && ! auth()->check()) {
             return redirect()->route('login');
         }
 

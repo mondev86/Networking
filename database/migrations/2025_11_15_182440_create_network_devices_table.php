@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('network_devices', function (Blueprint $table) {
             $table->id();
-             $table->string('name');
+            $table->string('name');
             $table->enum('type', ['router', 'switch', 'firewall', 'access_point', 'server']);
             $table->string('ip_address')->nullable();
             $table->string('mac_address')->nullable();

@@ -210,8 +210,8 @@ return [
     ],
 
     'prune' => [
-    'enabled' => true,
-    'hours' => 50, // elimina registros con más de 48 horas
-],
+        'enabled' => true,
+        'hours' => 50, // elimina registros con más de 48 horas
+    ],
 
 ];

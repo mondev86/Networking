@@ -16,7 +16,7 @@ class TwoFactorChallengeController extends Controller
     public function create(Request $request): Response
     {
         // Verificar que hay un usuario pendiente de autenticación 2FA
-        if (!$request->session()->has('login.two_factor_id')) {
+        if (! $request->session()->has('login.two_factor_id')) {
             return redirect()->route('login');
         }
 
@@ -34,7 +34,7 @@ class TwoFactorChallengeController extends Controller
 
         $userId = $request->session()->get('login.two_factor_id');
 
-        if (!$userId) {
+        if (! $userId) {
             return redirect()->route('login');
         }
 
@@ -43,7 +43,7 @@ class TwoFactorChallengeController extends Controller
         // Verificar el código 2FA (implementa tu lógica aquí)
         $isValid = $this->verifyTwoFactorCode($user, $request->code);
 
-        if (!$isValid) {
+        if (! $isValid) {
             return back()->withErrors([
                 'code' => 'The provided code is invalid.',
             ]);
@@ -68,7 +68,7 @@ class TwoFactorChallengeController extends Controller
     {
         // Implementa tu lógica de verificación aquí
         // Ejemplo básico (debes usar una librería como Google2FA):
-        if (!$user->two_factor_secret) {
+        if (! $user->two_factor_secret) {
             return false;
         }
 

@@ -31,7 +31,14 @@ export interface DashboardStats {
 export interface NetworkDevice {
     id: number | string;
     name: string;
-    type: 'router' | 'switch' | 'firewall' | 'server' | 'printer' | 'camera' | 'other';
+    type:
+        | 'router'
+        | 'switch'
+        | 'firewall'
+        | 'server'
+        | 'printer'
+        | 'camera'
+        | 'other';
     ip_address: string;
     mac_address?: string;
     location?: string;

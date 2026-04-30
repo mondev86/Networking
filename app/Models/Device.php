@@ -48,6 +48,7 @@ class Device extends Model
     public function getCurrentAssignee()
     {
         $current = $this->currentAssignment;
+
         return $current ? $current->assignable : null;
     }
 
@@ -58,7 +59,7 @@ class Device extends Model
      */
     public function isAvailable(): bool
     {
-        return $this->status === 'available' && !$this->currentAssignment;
+        return $this->status === 'available' && ! $this->currentAssignment;
     }
 
     /**
@@ -67,9 +68,11 @@ class Device extends Model
     public function getCurrentAssigneeType(): ?string
     {
         $assignment = $this->currentAssignment;
-        if (!$assignment) return null;
+        if (! $assignment) {
+            return null;
+        }
 
-        return match($assignment->assignable_type) {
+        return match ($assignment->assignable_type) {
             'App\\Models\\User' => 'user',
             'App\\Models\\Team' => 'team',
             'App\\Models\\Department' => 'department',

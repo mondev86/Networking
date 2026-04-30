@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -19,7 +19,7 @@ class UserController extends Controller
         $users = User::orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Users/Index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
         $user->load(['assignedDevices', 'tickets']);
 
         return Inertia::render('Users/Show', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Users/Edit', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -103,10 +103,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // No permitir que un usuario se elimine a sí mismo
-       if ($user->id === Auth::id()) {
-    return back()->with('error', 'No puedes eliminar tu propia cuenta.');
-}
-
+        if ($user->id === Auth::id()) {
+            return back()->with('error', 'No puedes eliminar tu propia cuenta.');
+        }
 
         $user->delete();
 

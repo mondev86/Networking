@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\TwoFactorChallengeController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\NetworkDeviceController;
-use App\Http\Controllers\TicketController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
+use App\Http\Controllers\TicketController;  // ← AGREGAR
 use App\Http\Controllers\TicketResponseController;
-use App\Http\Controllers\DeviceController;  // ← AGREGAR
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\TwoFactorChallengeController;
-use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
 use Inertia\Inertia;
 
 // Ruta de bienvenida
@@ -77,8 +77,8 @@ Route::middleware('auth')->group(function () {
             // Por usuario/equipo
             Route::get('/user/{user}', [DeviceController::class, 'userDevices'])->name('user');
             Route::get('/team/{team}', [DeviceController::class, 'teamDevices'])->name('team');
-             Route::get('/equipment/{equipment}/assignment-targets', [DeviceController::class, 'assignmentTargets'])
-    ->name('equipment.assignment-targets');
+            Route::get('/equipment/{equipment}/assignment-targets', [DeviceController::class, 'assignmentTargets'])
+                ->name('equipment.assignment-targets');
 
             // API endpoints
             Route::get('/{device}/assignment-targets', [DeviceController::class, 'getAssignmentTargets']);
@@ -92,7 +92,6 @@ Route::middleware('auth')->group(function () {
     });
 
 });
-
 
 // Two Factor Challenge (Auth)
 Route::middleware('guest')->group(function () {

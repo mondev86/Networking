@@ -16,9 +16,13 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // Opcional: si usas CSRF token de Laravel
-const token = document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]');
+const token = document.head.querySelector<HTMLMetaElement>(
+    'meta[name="csrf-token"]',
+);
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: please add <meta name="csrf-token" content="{{ csrf_token() }}"> in your <head>.');
+    console.error(
+        'CSRF token not found: please add <meta name="csrf-token" content="{{ csrf_token() }}"> in your <head>.',
+    );
 }

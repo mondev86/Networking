@@ -3,6 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import logo from '@/assets/logonetworking.png'
-
+import logo from '@/assets/logonetworking.png';
 </script>

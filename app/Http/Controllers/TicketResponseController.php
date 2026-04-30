@@ -49,7 +49,7 @@ class TicketResponseController extends Controller
     public function destroy(TicketResponse $response)
     {
         // Solo el autor o un superadmin pueden eliminar
-        if ($response->user_id !== auth()->id() && !auth()->user()->isSuperAdmin()) {
+        if ($response->user_id !== auth()->id() && ! auth()->user()->isSuperAdmin()) {
             abort(403);
         }
 

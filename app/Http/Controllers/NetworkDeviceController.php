@@ -19,7 +19,7 @@ class NetworkDeviceController extends Controller
             ->get();
 
         return Inertia::render('NetworkDevices/Index', [
-            'devices' => $devices
+            'devices' => $devices,
         ]);
     }
 
@@ -33,7 +33,7 @@ class NetworkDeviceController extends Controller
             ->get();
 
         return Inertia::render('NetworkDevices/Create', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -41,22 +41,22 @@ class NetworkDeviceController extends Controller
      * Store a newly created device in storage.
      */
     // app/Http/Controllers/NetworkDeviceController.php
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'type' => 'required|in:router,switch,firewall,access_point,server',
-        'ip_address' => 'required|ip|unique:network_devices',
-        'mac_address' => 'nullable|string|max:17',
-        'location' => 'nullable|string|max:255',
-        'status' => 'required|in:available,assigned,maintenance,offline',
-    ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|in:router,switch,firewall,access_point,server',
+            'ip_address' => 'required|ip|unique:network_devices',
+            'mac_address' => 'nullable|string|max:17',
+            'location' => 'nullable|string|max:255',
+            'status' => 'required|in:available,assigned,maintenance,offline',
+        ]);
 
-    NetworkDevice::create($validated);
+        NetworkDevice::create($validated);
 
-    return redirect()->route('devices.index')
-        ->with('success', 'Dispositivo creado exitosamente.');
-}
+        return redirect()->route('devices.index')
+            ->with('success', 'Dispositivo creado exitosamente.');
+    }
 
     /**
      * Display the specified device.
@@ -65,14 +65,14 @@ public function store(Request $request)
     {
         $device = NetworkDevice::find($deviceId);
 
-        if (!$device) {
+        if (! $device) {
             return redirect()->route('devices.index')->with('error', 'Dispositivo no encontrado.');
         }
 
         $device->load(['assignedUser', 'tickets.user']);
 
         return Inertia::render('NetworkDevices/Show', [
-            'device' => $device
+            'device' => $device,
         ]);
     }
 
@@ -83,7 +83,7 @@ public function store(Request $request)
     {
         $device = NetworkDevice::find($deviceId);
 
-        if (!$device) {
+        if (! $device) {
             return redirect()->route('devices.index')->with('error', 'Dispositivo no encontrado.');
         }
 
@@ -93,7 +93,7 @@ public function store(Request $request)
 
         return Inertia::render('NetworkDevices/Edit', [
             'device' => $device,
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -104,7 +104,7 @@ public function store(Request $request)
     {
         $device = NetworkDevice::find($deviceId);
 
-        if (!$device) {
+        if (! $device) {
             return redirect()->route('devices.index')->with('error', 'Dispositivo no encontrado.');
         }
 
@@ -134,7 +134,7 @@ public function store(Request $request)
     {
         $device = NetworkDevice::find($deviceId);
 
-        if (!$device) {
+        if (! $device) {
             return redirect()->route('devices.index')->with('error', 'Dispositivo no encontrado.');
         }
 
@@ -152,7 +152,7 @@ public function store(Request $request)
         $devices = NetworkDevice::where('status', 'available')->get();
 
         return Inertia::render('NetworkDevices/Available', [
-            'devices' => $devices
+            'devices' => $devices,
         ]);
     }
 }
