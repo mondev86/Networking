@@ -9,6 +9,7 @@
 /public/storage
 .env
 .env.*
+!.env.example
 .phpunit.result.cache
 .phpunit.cache
 Homestead.json
