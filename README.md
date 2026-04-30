@@ -2,6 +2,21 @@
 
 Sistema web de gestión de dispositivos de red y tickets de soporte técnico construido con Laravel, Vue 3 e Inertia.js. **Dockerizado para demo rápido.**
 
+---
+
+## 📸 Screenshots
+
+### Login
+![Login Screen](public/img/screenshots/login.png)
+
+### Dashboard
+![Dashboard](public/img/screenshots/dashboard.png)
+
+### Módulo de Equipos
+![Equipos Informáticos](public/img/screenshots/equipment.png)
+
+---
+
 ## 📋 Descripción
 
 Networking es una aplicación completa para:
@@ -81,7 +96,7 @@ Networking es una aplicación completa para:
 
 1. **Clonar el repositorio**
 ```bash
-git clone <repository-url>
+git clone https://github.com/mondev86/Networking.git
 cd Networking
 ```
 
@@ -143,7 +158,7 @@ docker compose down
 
 1. **Clonar el repositorio**
 ```bash
-git clone <repository-url>
+git clone https://github.com/mondev86/Networking.git
 cd Networking
 ```
 
@@ -313,7 +328,7 @@ Este proyecto es de código abierto bajo la licencia MIT.
 
 ## 👥 Autor
 
-Desarrollado como sistema de gestión de red y soporte técnico.
+Desarrollado por Hector Montoya como proyecto personal para gestionar inventario de red en entornos empresariales
 
 ---
 
