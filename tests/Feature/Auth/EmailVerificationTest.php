@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 
 test('email verification screen can be rendered', function () {
+    /** @var User $user */
     $user = User::factory()->unverified()->create();
 
     $response = $this->actingAs($user)->get(route('verification.notice'));
@@ -14,6 +15,7 @@ test('email verification screen can be rendered', function () {
 })->skip('Email verification views are not fully configured yet.');
 
 test('email can be verified', function () {
+    /** @var User $user */
     $user = User::factory()->unverified()->create();
 
     Event::fake();
@@ -32,6 +34,7 @@ test('email can be verified', function () {
 });
 
 test('email is not verified with invalid hash', function () {
+    /** @var User $user */
     $user = User::factory()->unverified()->create();
 
     $verificationUrl = URL::temporarySignedRoute(
