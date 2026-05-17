@@ -328,7 +328,7 @@ Este proyecto es de código abierto bajo la licencia MIT.
 
 ## 👥 Autor
 
-Desarrollado por Hector Montoya como proyecto personal para gestionar inventario de red en entornos empresariales
+Desarrollado por Hector Montoya como proyecto personal para gestionar inventario de red y equipos informáticos en entornos empresariales.
 
 ---
 
