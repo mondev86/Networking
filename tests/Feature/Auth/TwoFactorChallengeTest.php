@@ -27,10 +27,11 @@ test('two factor challenge can be rendered', function () {
         'two_factor_confirmed_at' => now(),
     ])->save();
 
-    $this->post(route('login'), [
-        'email' => $user->email,
-        'password' => 'password',
-    ]);
+    $this->followingRedirects()
+        ->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
 
     $this->actingAs($user)
         ->withSession(['login.two_factor_id' => $user->id])
